@@ -92,8 +92,16 @@ sudo apt install curl wget
 sudo apt install make
 sudo apt install net-tools
 
+#lazydocker
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+nano ~/.bashrc
+# Add local binaries to path
+export PATH="$PATH:$HOME/.local/bin"
 
+# Optional: shortcut alias
+alias lzd='lazydocker'
+
+#Portainer
 docker volume create portainer_data
 docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always \
     -v /var/run/docker.sock:/var/run/docker.sock \
