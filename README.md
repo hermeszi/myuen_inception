@@ -107,6 +107,10 @@ docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v portainer_data:/data \
     portainer/portainer-ce:latest
-
+```
+11. SSH
+```
+ssh-keygen -t ed25519 -C "myuen@student.42singapore.sg"
+cat ~/.ssh/id_ed25519.pub
 
 ```
