@@ -39,4 +39,31 @@ sudo apt-get update
 ### Install Docker components:
 ```
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+#add myself to docker group
+sudo usermod -aG docker mingde
+```
+
+6. Setup the Folder Structure
+```
+mkdir -p ~/inception/srcs/requirements/{mariadb,nginx,wordpress}
+mkdir -p ~/inception/srcs/requirements/mariadb/conf
+mkdir -p ~/inception/srcs/requirements/mariadb/tools
+mkdir -p ~/inception/srcs/requirements/nginx/conf
+mkdir -p ~/inception/srcs/requirements/nginx/tools
+mkdir -p ~/inception/srcs/requirements/wordpress/conf
+mkdir -p ~/inception/srcs/requirements/wordpress/tools
+touch ~/inception/Makefile
+touch ~/inception/srcs/docker-compose.yml
+touch ~/inception/srcs/.env
+```
+7. Configure the Local Domain
+```
+sudo nano /etc/hosts
+127.0.0.1 myuen.42.fr
+```
+8. Prepare volume
+```
+mkdir -p /home/mingde/data/mariadb
+mkdir -p /home/mingde/data/wordpress
 ```
