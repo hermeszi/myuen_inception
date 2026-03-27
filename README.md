@@ -64,6 +64,41 @@ sudo nano /etc/hosts
 ```
 8. Prepare volume
 ```
-mkdir -p /home/mingde/data/mariadb
-mkdir -p /home/mingde/data/wordpress
+mkdir -p /home/myuen/data/mariadb
+mkdir -p /home/myuen/data/wordpress
+```
+
+9. Install VS Code
+```
+sudo apt update
+sudo apt install software-properties-common apt-transport-https curl gpg -y
+
+# 2. Import Microsoft's GPG Key
+curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-archive-keyring.gpg
+
+# 3. Add the Repository
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+
+# 4. Vscode
+sudo apt update
+sudo apt install code -y
+```
+
+10. Install useful tools
+```
+sudo apt install git
+sudo apt install vim
+sudo apt install curl wget
+sudo apt install make
+sudo apt install net-tools
+
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+docker volume create portainer_data
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer-ce:latest
+
+
 ```
