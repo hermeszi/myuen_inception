@@ -416,3 +416,9 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Ignore the environment file (it will contain DB passwords)
+srcs/.env
+
+# Ignore the data volumes (don't push your actual database/files)
+/home/myuen/data/
