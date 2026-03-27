@@ -112,5 +112,6 @@ docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always \
 ```
 ssh-keygen -t ed25519 -C "myuen@student.42singapore.sg"
 cat ~/.ssh/id_ed25519.pub
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFDelOUviJ2rxUji6Ok4SMg8NDCxtbdiAtP4GMXKvdcY myuen@student.42singapore.sg
 
 ```
