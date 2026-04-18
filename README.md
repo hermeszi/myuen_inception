@@ -213,3 +213,17 @@ networks:
   inception:
     driver: bridge
 ```
+17.  Add .env to .gitignore:
+
+18. check
+```
+docker compose up --build -d
+
+docker compose logs mariadb
+```
+
+18. Shell into the container
+```
+docker exec -it mariadb bash
+mariadb -u root -p
+SHOW DATABASES;
