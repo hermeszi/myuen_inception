@@ -186,32 +186,32 @@ DOMAIN_NAME=myuen.42.fr
 16. srcs/docker-compose.yml (MariaDB only for now):
 ```
 services:
-  mariadb:
-    build: requirements/mariadb
-    container_name: mariadb
-    env_file: .env
-    environment:
+  mariadb:                    # service name = container hostname on Docker network
+    build: requirements/mariadb   # where to find the Dockerfile
+    container_name: mariadb   # actual container name (must match service name for eval)
+    env_file: .env            # load all variables from .env file
+    environment:              # pass specific vars into container
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql  # named volume : path inside container
     networks:
-      - inception
-    restart: unless-stopped
+      - inception             # which Docker network to join
+    restart: unless-stopped   # restart on crash, but not if manually stopped
 
 volumes:
-  mariadb_data:
+  mariadb_data:               # define the named volume
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/myuen/data/mariadb
+      device: /home/myuen/data/mariadb  # where data lives on host machine
 
 networks:
   inception:
-    driver: bridge
+    driver: bridge            # standard Docker network type
 ```
 17.  Add .env to .gitignore:
 
