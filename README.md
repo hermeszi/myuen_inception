@@ -1,41 +1,26 @@
-myuen@myuen:~/inception/srcs$ docker exec -it mariadb mariadb --help | grep "Default options" -A 3
-Default options are read from the following files in the given order:
-/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf 
-The following groups are read: mysql mariadb-client client client-server client-mariadb
-The following options may be given as the first argument:
-
-
-myuen@myuen:~/inception/srcs$ docker exec -it mariadb cat /etc/mysql/my.cnf
-# The MariaDB configuration file
-#
-# The MariaDB/MySQL tools read configuration files in the following order:
-# 0. "/etc/mysql/my.cnf" symlinks to this file, reason why all the rest is read.
-# 1. "/etc/mysql/mariadb.cnf" (this file) to set global defaults,
-# 2. "/etc/mysql/conf.d/*.cnf" to set global options.
-# 3. "/etc/mysql/mariadb.conf.d/*.cnf" to set MariaDB-only options.
-# 4. "~/.my.cnf" to set user-specific options.
-#
-# If the same option is defined multiple times, the last one will apply.
-#
-# One can use all long options that the program supports.
-# Run program with --help to get a list of available options and with
-# --print-defaults to see which it would actually understand and use.
-#
-# If you are new to MariaDB, check out https://mariadb.com/kb/en/basic-mariadb-articles/
-
-#
-# This group is read both by the client and the server
-# use it for options that affect everything
-#
-[client-server]
-# Port or socket location where to connect
-# port = 3306
-socket = /run/mysqld/mysqld.sock
-
-# Import all .cnf files from configuration directory
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mariadb.conf.d/
-
+[+] up 7/7
+ ✔ Image srcs-wordpress       Built                                                                                       1.4s
+ ✔ Image srcs-mariadb         Built                                                                                       1.4s
+ ✔ Network srcs_inception     Created                                                                                     0.1s
+ ✔ Volume srcs_wordpress_data Created                                                                                     0.0s
+ ✔ Volume srcs_mariadb_data   Created                                                                                     0.0s
+ ✔ Container mariadb          Created                                                                                     0.1s
+ ✔ Container wordpress        Created                                                                                     0.1s
+Attaching to mariadb, wordpress
+mariadb  | 260420 10:20:08 mysqld_safe Logging to syslog.
+mariadb  | 260420 10:20:09 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
+wordpress  | Waiting for MariaDB...
+wordpress  | Error: WordPress files seem to already be present here.
+wordpress  | Success: Generated 'wp-config.php' file.
+myuen@myuen:~/inception/srcs$ 
+myuen@myuen:~/inception/srcs$ docker compose logs wordpress
+wordpress  | Waiting for MariaDB...
+wordpress  | Error: WordPress files seem to already be present here.
+wordpress  | Success: Generated 'wp-config.php' file.
+wordpress  | sh: 1: /usr/sbin/sendmail: not found
+wordpress  | Success: WordPress installed successfully.
+wordpress  | Error: Sorry, that email address is already used!
+myuen@myuen:~/inception/srcs$ 
 
 
 # myuen_inception
@@ -164,7 +149,9 @@ RUN apt-get update && apt-get install -y \
     mariadb-server \
     && rm -rf /var/lib/apt/lists/*
 
-COPY conf/my.cnf /etc/mysql/conf.d/
+#COPY conf/my.cnf /etc/mysql/my.cnf LOAD ORDER problem
+COPY conf/my.cnf /etc/mysql/mariadb.conf.d/99custom.cnf
+
 COPY tools/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
