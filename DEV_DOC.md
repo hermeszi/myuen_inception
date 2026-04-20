@@ -51,7 +51,6 @@ WP_USER_EMAIL=<wp_second_email>     # must be different from admin email
 cat ~/inception/.gitignore
 # Must contain:
 # srcs/.env
-# secrets/
 ```
 
 ---
