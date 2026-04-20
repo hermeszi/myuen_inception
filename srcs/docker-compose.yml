@@ -10,6 +10,8 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - mariadb_data:/var/lib/mysql  # named volume : path inside container
+    expose:
+      - "3306"                # documentation only
     networks:
       - inception             # which Docker network to join
     restart: unless-stopped   # restart on crash, but not if manually stopped
@@ -44,6 +46,8 @@ services:
       - "443:443"
     volumes:
       - wordpress_data:/var/www/html
+    expose:
+      - "9000"    # documentation only
     networks:
       - inception
     depends_on:
