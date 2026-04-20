@@ -1,27 +1,3 @@
-[+] up 7/7
- ✔ Image srcs-wordpress       Built                                                                                       1.4s
- ✔ Image srcs-mariadb         Built                                                                                       1.4s
- ✔ Network srcs_inception     Created                                                                                     0.1s
- ✔ Volume srcs_wordpress_data Created                                                                                     0.0s
- ✔ Volume srcs_mariadb_data   Created                                                                                     0.0s
- ✔ Container mariadb          Created                                                                                     0.1s
- ✔ Container wordpress        Created                                                                                     0.1s
-Attaching to mariadb, wordpress
-mariadb  | 260420 10:20:08 mysqld_safe Logging to syslog.
-mariadb  | 260420 10:20:09 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-wordpress  | Waiting for MariaDB...
-wordpress  | Error: WordPress files seem to already be present here.
-wordpress  | Success: Generated 'wp-config.php' file.
-myuen@myuen:~/inception/srcs$ 
-myuen@myuen:~/inception/srcs$ docker compose logs wordpress
-wordpress  | Waiting for MariaDB...
-wordpress  | Error: WordPress files seem to already be present here.
-wordpress  | Success: Generated 'wp-config.php' file.
-wordpress  | sh: 1: /usr/sbin/sendmail: not found
-wordpress  | Success: WordPress installed successfully.
-wordpress  | Error: Sorry, that email address is already used!
-myuen@myuen:~/inception/srcs$ 
-
 
 # myuen_inception
 documentation and files for ft_inception @ 42
