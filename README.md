@@ -424,7 +424,16 @@ http {
 29. Add to docker compose vol info
 
 ```
-  nginx:
+nginx:
+    build: requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
     volumes:
       - wordpress_data:/var/www/html
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    restart: unless-stopped
 ```
