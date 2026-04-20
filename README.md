@@ -461,3 +461,11 @@ fclean: clean
 
 .PHONY: all down re clean fclean
 ```
+32. test wordpress data persistance
+```
+Go to https://myuen.42.fr/wp-admin
+Login with your admin credentials (myuen / your password)
+Go to Posts → Add New
+Write a test post, publish it
+Visit the site and confirm you see the post
+```
