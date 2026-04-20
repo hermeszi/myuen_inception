@@ -227,3 +227,76 @@ docker compose logs mariadb
 docker exec -it mariadb bash
 mariadb -u root -p
 SHOW DATABASES;
+```
+
+19. Create srcs/requirements/wordpress/Dockerfile:
+```
+FROM debian:bookworm
+
+RUN apt-get update && apt-get install -y \
+    php-fpm \
+    php-mysql \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download WP-CLI
+RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x /usr/local/bin/wp
+
+COPY tools/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /var/www/html
+
+EXPOSE 9000
+
+ENTRYPOINT ["/entrypoint.sh"]
+```
+
+20.create wordpress entrypoint.sh
+```
+#!/bin/bash
+
+if [ ! -f /var/www/html/wp-config.php ]; then
+
+    # Download WordPress files
+    wp core download --allow-root
+
+    # Create wp-config.php using env variables
+    wp config create \
+        --dbname=${MYSQL_DATABASE} \
+        --dbuser=${MYSQL_USER} \
+        --dbpass=${MYSQL_PASSWORD} \
+        --dbhost=mariadb \
+        --allow-root
+
+    # Install WordPress and create DB tables
+    wp core install \
+        --url=${DOMAIN_NAME} \
+        --title="Inception" \
+        --admin_user=${WP_ADMIN} \
+        --admin_password=${WP_ADMIN_PASSWORD} \
+        --admin_email=${WP_ADMIN_EMAIL} \
+        --allow-root
+
+    # Create second regular user
+    wp user create ${WP_USER} ${WP_USER_EMAIL} \
+        --role=author \
+        --user_pass=${WP_USER_PASSWORD} \
+        --allow-root
+
+fi
+
+# Start php-fpm as PID 1
+exec php-fpm8.2 -F
+```
+
+21. Add new passwords to .env
+```
+WP_ADMIN=myuen_root
+WP_ADMIN_PASSWORD=1234
+WP_ADMIN_EMAIL=myuen@student.42singapore.sg
+WP_USER=myuen_user
+WP_USER_PASSWORD=4321
+WP_USER_EMAIL=myuen@student.42singapore.sg
+```
