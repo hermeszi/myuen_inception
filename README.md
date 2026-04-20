@@ -300,3 +300,9 @@ WP_USER=myuen_user
 WP_USER_PASSWORD=4321
 WP_USER_EMAIL=myuen@student.42singapore.sg
 ```
+22. check wordpress fpm version
+```
+docker run -it debian:bookworm bash
+apt-get update && apt-get install -y php-fpm
+ls /usr/sbin/php-fpm*
+```
