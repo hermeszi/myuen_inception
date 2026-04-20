@@ -136,7 +136,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 13. create the MariaDB config file srcs/requirements/mariadb/conf/my.cnf:
 ```
-ini[mysqld]
+[mysqld]
 bind-address = 0.0.0.0
 port = 3306
 ```
@@ -178,7 +178,7 @@ exec mysqld_safe
 ```
 MYSQL_DATABASE=wordpress
 MYSQL_USER=myuen
-MYSQL_PASSWORD=1234
+MYSQL_PASSWORD=4321
 MYSQL_ROOT_PASSWORD=1234
 DOMAIN_NAME=myuen.42.fr
 ```
