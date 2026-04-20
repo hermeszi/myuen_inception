@@ -342,3 +342,8 @@ wordpress_data:
       o: bind
       device: /home/myuen/data/wordpress
 ```      
+25. check wordpress
+```
+docker compose up --build -d
+docker compose logs wordpress
+```
