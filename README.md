@@ -1,15 +1,3 @@
-myuen@myuen:~/inception$ code .
-myuen@myuen:~/inception$ git pull
-error: cannot pull with rebase: You have unstaged changes.
-error: object file .git/objects/71/5de1482bd5a98a330eff616019e96bcedefa34 is empty
-error: object file .git/objects/71/5de1482bd5a98a330eff616019e96bcedefa34 is empty
-fatal: loose object 715de1482bd5a98a330eff616019e96bcedefa34 (stored in .git/objects/71/5de1482bd5a98a330eff616019e96bcedefa34) is corrupt
-myuen@myuen:~/inception$ git status
-error: object file .git/objects/71/5de1482bd5a98a330eff616019e96bcedefa34 is empty
-error: object file .git/objects/71/5de1482bd5a98a330eff616019e96bcedefa34 is empty
-fatal: loose object 715de1482bd5a98a330eff616019e96bcedefa34 (stored in .git/objects/71/5de1482bd5a98a330eff616019e96bcedefa34) is corrupt
-myuen@myuen:~/inception$ 
-
 
 # myuen_inception
 documentation and files for ft_inception @ 42
