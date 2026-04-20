@@ -1,3 +1,72 @@
+myuen@myuen:~/inception/srcs$ docker network ls
+NETWORK ID     NAME             DRIVER    SCOPE
+a26da79b572a   bridge           bridge    local
+c9e69edd20fb   host             host      local
+7b5210c20011   none             null      local
+87c8926a0d4d   srcs_inception   bridge    local
+myuen@myuen:~/inception/srcs$ docker network inspect srcs_inception 
+[
+    {
+        "Name": "srcs_inception",
+        "Id": "87c8926a0d4d751763b0f5cf0c344425a420d5087000701dc41c9f709b9fd00f",
+        "Created": "2026-04-20T17:29:43.37575673+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.config-hash": "dfa2790b5fecb2e1bf3a6e792291be96e2f9e0570f6f7e32253eaab1f4bfeec3",
+            "com.docker.compose.network": "inception",
+            "com.docker.compose.project": "srcs",
+            "com.docker.compose.version": "5.1.3"
+        },
+        "Containers": {
+            "cc378d4458fffe5ff0158ce2ee5a639f856378457da748484fc36c84c6b5292d": {
+                "Name": "wordpress",
+                "EndpointID": "c6a4d537f54987a0be78a6363ed6d04c4e5dbdc4190c13f4caa8f79408d24c8a",
+                "MacAddress": "be:a0:7f:9a:68:a4",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "d17587ecc74a6c06f6b43c17108fa470d9477ec4c1a22432047a5e8b3b754b81": {
+                "Name": "mariadb",
+                "EndpointID": "eebbad92adc7c3d177a71894d97476310e1c8f32c55e34dc238f2c921310d007",
+                "MacAddress": "82:82:9d:4c:d4:4c",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    }
+]
+
 
 # myuen_inception
 documentation and files for ft_inception @ 42
