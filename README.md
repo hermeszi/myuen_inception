@@ -372,4 +372,5 @@ pm.max_spare_servers = 3
 docker compose down
 docker compose up --build -d
 docker compose logs wordpress
+docker exec -it mariadb mariadb -u root -p -e "USE wordpress; SHOW TABLES;"
 ```
