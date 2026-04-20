@@ -1,3 +1,27 @@
+myuen@myuen:~/inception/srcs$ docker ps
+CONTAINER ID   IMAGE            COMMAND            CREATED          STATUS         PORTS      NAMES
+7739fa2364c2   srcs-wordpress   "/entrypoint.sh"   9 seconds ago    Up 8 seconds   9000/tcp   wordpress
+3257bb9c368a   srcs-mariadb     "/entrypoint.sh"   10 seconds ago   Up 9 seconds   3306/tcp   mariadb
+myuen@myuen:~/inception/srcs$ docker logs wordpress
+Downloading WordPress 6.9.4 (en_US)...
+md5 hash verified: 9355f37ee9ec885c93e3ca87ba8538d4
+Success: WordPress downloaded.
+Error: Database connection error (2002) Connection refused
+Error: 'wp-config.php' not found.
+Either create one manually or use `wp config create`.
+Error: 'wp-config.php' not found.
+Either create one manually or use `wp config create`.
+myuen@myuen:~/inception/srcs$ docker compose logs wordpress
+wordpress  | Downloading WordPress 6.9.4 (en_US)...
+wordpress  | md5 hash verified: 9355f37ee9ec885c93e3ca87ba8538d4
+wordpress  | Success: WordPress downloaded.
+wordpress  | Error: Database connection error (2002) Connection refused
+wordpress  | Error: 'wp-config.php' not found.
+wordpress  | Either create one manually or use `wp config create`.
+wordpress  | Error: 'wp-config.php' not found.
+wordpress  | Either create one manually or use `wp config create`.
+
+
 # myuen_inception
 documentation and files for ft_inception @ 42
 
