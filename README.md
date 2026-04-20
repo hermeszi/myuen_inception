@@ -1,3 +1,64 @@
+myuen@myuen:~/inception/srcs$ docker compose up --build -d
+[+] Building 3.2s (23/24)                                                       
+ => [internal] load local bake definitions                                 0.0s
+ => => reading from stdin 1.46kB                                           0.0s
+ => [wordpress internal] load build definition from Dockerfile             0.1s
+ => => transferring dockerfile: 495B                                       0.0s
+ => [nginx internal] load build definition from Dockerfile                 0.2s
+ => => transferring dockerfile: 455B                                       0.0s
+ => [mariadb internal] load build definition from Dockerfile               0.1s
+ => => transferring dockerfile: 365B                                       0.0s
+ => [mariadb internal] load metadata for docker.io/library/debian:bookwor  0.1s
+ => [mariadb internal] load .dockerignore                                  0.0s
+ => => transferring context: 2B                                            0.0s
+ => [nginx internal] load .dockerignore                                    0.1s
+ => => transferring context: 2B                                            0.0s
+ => [wordpress internal] load .dockerignore                                0.1s
+ => => transferring context: 2B                                            0.0s
+ => CACHED [mariadb 1/5] FROM docker.io/library/debian:bookworm@sha256:1d  0.1s
+ => => resolve docker.io/library/debian:bookworm@sha256:1d6cd964917a13b54  0.0s
+ => [mariadb internal] load build context                                  0.1s
+ => => transferring context: 1.12kB                                        0.0s
+ => [wordpress internal] load build context                                0.0s
+ => => transferring context: 1.19kB                                        0.0s
+ => [nginx internal] load build context                                    0.1s
+ => => transferring context: 2B                                            0.0s
+ => CANCELED [nginx 2/4] RUN apt-get update && apt-get install -y     ngi  0.4s
+ => CACHED [nginx 3/4] RUN openssl req -x509 -nodes -days 365 -newkey rsa  0.0s
+ => ERROR [nginx 4/4] COPY conf/nginx.conf /etc/nginx/nginx.conf           0.0s
+ => CACHED [wordpress 2/6] RUN apt-get update && apt-get install -y     p  0.0s
+ => CACHED [wordpress 3/6] RUN curl -o /usr/local/bin/wp https://raw.gith  0.0s
+ => [wordpress 4/6] COPY tools/entrypoint.sh /entrypoint.sh                0.4s
+ => CACHED [mariadb 2/5] RUN apt-get update && apt-get install -y     mar  0.0s
+ => CACHED [mariadb 3/5] COPY conf/my.cnf /etc/mysql/mariadb.conf.d/99cus  0.0s
+ => [mariadb 4/5] COPY tools/entrypoint.sh /entrypoint.sh                  0.3s
+ => CANCELED [mariadb 5/5] RUN chmod +x /entrypoint.sh                     1.6s
+ => CANCELED [wordpress 5/6] RUN chmod +x /entrypoint.sh                   1.5s
+------
+ > [nginx 4/4] COPY conf/nginx.conf /etc/nginx/nginx.conf:
+------
+[+] up 0/3
+ ⠙ Image srcs-mariadb   Building                                            3.2s
+ ⠙ Image srcs-wordpress Building                                            3.2s
+ ⠙ Image srcs-nginx     Building                                            3.2s
+Dockerfile:13
+
+--------------------
+
+  11 |         -subj "/C=SG/ST=Singapore/L=Singapore/O=42/CN=myuen.42.fr"
+
+  12 |     
+
+  13 | >>> COPY conf/nginx.conf /etc/nginx/nginx.conf
+
+  14 |     
+
+  15 |     EXPOSE 443
+
+--------------------
+
+target nginx: failed to solve: failed to compute cache key: failed to calculate checksum of ref aclh0uvf1ac0fjrbieh2m2roe::s76j4ytyn7kxbxncqrjg430mn: "/conf/nginx.conf": not found
+
 
 # myuen_inception
 documentation and files for ft_inception @ 42
