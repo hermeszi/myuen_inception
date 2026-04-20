@@ -468,3 +468,7 @@ Go to Posts → Add New
 Write a test post, publish it
 Visit the site and confirm you see the post
 ```
+33. show 2 wordpress user
+```
+docker exec -it wordpress wp user list --allow-root
+```
