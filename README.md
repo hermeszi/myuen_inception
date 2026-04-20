@@ -350,8 +350,24 @@ wordpress_data:
       o: bind
       device: /home/myuen/data/wordpress
 ```      
-25. check wordpress
+25. replace wordpress default confi - srcs/requirements/wordpress/conf/www.conf
 ```
+[www]
+user = www-data
+group = www-data
+listen = 0.0.0.0:9000
+listen.owner = www-data
+listen.group = www-data
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+```
+
+26. test wordpress
+```
+docker compose down
 docker compose up --build -d
 docker compose logs wordpress
 ```
