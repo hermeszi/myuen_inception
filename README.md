@@ -1,3 +1,15 @@
+MYSQL_DATABASE=wordpress
+MYSQL_USER=myuen
+MYSQL_PASSWORD=4321
+MYSQL_ROOT_PASSWORD=1234
+DOMAIN_NAME=myuen.42.fr
+
+WP_ADMIN=myuen_root
+WP_ADMIN_PASSWORD=1234
+WP_ADMIN_EMAIL=myuen@student.42singapore.sg
+WP_USER=myuen_user
+WP_USER_PASSWORD=4321
+WP_USER_EMAIL=myuen@student.42singapore.sg
 
 # myuen_inception
 documentation and files for ft_inception @ 42
