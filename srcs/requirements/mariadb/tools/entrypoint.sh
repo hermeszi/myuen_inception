@@ -3,6 +3,8 @@
 # First run: data directory for our database doesn't exist yet
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
 
+    echo "Initializing MariaDB data directory and setting up database..."
+
     # Initialize fresh MariaDB data directory
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
@@ -26,4 +28,5 @@ EOF
 fi
 
 # Start MariaDB as PID 1 (replaces this script process)
+echo "Starting MariaDB..."
 exec mysqld_safe

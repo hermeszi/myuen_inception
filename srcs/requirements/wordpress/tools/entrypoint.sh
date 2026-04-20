@@ -8,6 +8,7 @@ done
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
+    echo "Setting up WordPress..."
     # Download WordPress files
     wp core download --allow-root
 
@@ -36,5 +37,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
 fi
 
+echo "WordPress setup complete. Starting php-fpm..."
 # Start php-fpm as PID 1
 exec php-fpm8.2 -F
