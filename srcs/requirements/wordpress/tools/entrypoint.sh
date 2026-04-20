@@ -18,6 +18,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --dbuser=${MYSQL_USER} \
         --dbpass=${MYSQL_PASSWORD} \
         --dbhost=mariadb \
+        --dbport=${MYSQL_PORT} \
         --allow-root
 
     # Install WordPress and create DB tables
