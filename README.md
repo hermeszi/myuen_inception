@@ -421,3 +421,10 @@ http {
     }
 }
 ```
+29. Add to docker compose vol info
+
+```
+  nginx:
+    volumes:
+      - wordpress_data:/var/www/html
+```
