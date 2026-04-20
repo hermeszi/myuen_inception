@@ -306,3 +306,39 @@ docker run -it debian:bookworm bash
 apt-get update && apt-get install -y php-fpm
 ls /usr/sbin/php-fpm*
 ```
+
+23. add WordPress to docker-compose.yml:
+```
+wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - WP_ADMIN=${WP_ADMIN}
+      - WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+      - WP_USER=${WP_USER}
+      - WP_USER_PASSWORD=${WP_USER_PASSWORD}
+      - WP_USER_EMAIL=${WP_USER_EMAIL}
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+```
+
+24. add the volume
+```
+wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/myuen/data/wordpress
+```      
