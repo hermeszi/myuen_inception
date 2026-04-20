@@ -25,13 +25,7 @@ sudo nano /etc/hosts
 127.0.0.1 myuen.42.fr
 ```
 
-### 3. Create secrets directory
-```bash
-mkdir -p ~/inception/secrets
-# Add credential files here (gitignored)
-```
-
-### 4. Create .env file
+### 3. Create .env file
 ```bash
 nano ~/inception/srcs/.env
 ```
@@ -43,6 +37,7 @@ MYSQL_USER=<db_username>
 MYSQL_PASSWORD=<db_password>
 MYSQL_ROOT_PASSWORD=<root_password>
 DOMAIN_NAME=myuen.42.fr
+MYSQL_PORT=3306
 WP_ADMIN=<wp_admin_username>        # must not contain "admin"
 WP_ADMIN_PASSWORD=<wp_admin_pass>
 WP_ADMIN_EMAIL=<wp_admin_email>
@@ -51,7 +46,7 @@ WP_USER_PASSWORD=<wp_second_pass>
 WP_USER_EMAIL=<wp_second_email>     # must be different from admin email
 ```
 
-### 5. Verify .gitignore
+### 4. Verify .gitignore
 ```bash
 cat ~/inception/.gitignore
 # Must contain:
@@ -66,9 +61,6 @@ cat ~/inception/.gitignore
 ```
 inception/
 ├── Makefile
-├── secrets/
-│   ├── db_password.txt
-│   └── db_root_password.txt
 └── srcs/
     ├── .env                        ← gitignored
     ├── docker-compose.yml
