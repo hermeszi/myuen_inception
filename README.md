@@ -374,3 +374,9 @@ docker compose up --build -d
 docker compose logs wordpress
 docker exec -it mariadb mariadb -u root -p -e "USE wordpress; SHOW TABLES;"
 ```
+27. generate a self-signed SSL
+```
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/ssl/private/nginx.key \
+    -out /etc/ssl/certs/nginx.crt
+```
