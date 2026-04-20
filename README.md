@@ -1,3 +1,8 @@
+[mysqld]$
+bind-address = 0.0.0.0$
+port = 3306$
+
+
 myuen@myuen:~/inception/srcs$ docker network ls
 NETWORK ID     NAME             DRIVER    SCOPE
 a26da79b572a   bridge           bridge    local
