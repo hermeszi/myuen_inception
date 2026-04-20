@@ -184,6 +184,7 @@ MYSQL_USER=myuen
 MYSQL_PASSWORD=4321
 MYSQL_ROOT_PASSWORD=1234
 DOMAIN_NAME=myuen.42.fr
+MYSQL_PORT=3306
 ```
 
 16. srcs/docker-compose.yml (MariaDB only for now):
