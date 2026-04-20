@@ -394,7 +394,7 @@ EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
 ```
-28. Nginx confi
+28. ~/inception/srcs/requirements/nginx/conf/nginx.conf
 ```
 events {}
 
