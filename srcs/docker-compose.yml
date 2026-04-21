@@ -1,5 +1,6 @@
 services:
   mariadb:                    # service name = container hostname on Docker network
+    image: mariadb
     build: requirements/mariadb   # where to find the Dockerfile
     container_name: mariadb   # actual container name (must match service name for eval)
     env_file: .env            # load all variables from .env file
@@ -17,6 +18,7 @@ services:
     restart: unless-stopped   # restart on crash, but not if manually stopped
 
   wordpress:
+    image: wordpress
     build: requirements/wordpress
     container_name: wordpress
     env_file: .env
@@ -41,6 +43,7 @@ services:
     restart: unless-stopped
 
   nginx:
+    image: nginx
     build: requirements/nginx
     container_name: nginx
     ports:
