@@ -143,6 +143,25 @@ Docker named volumes (`srcs_mariadb_data`, `srcs_wordpress_data`) use bind drive
 
 ---
 
+## Changing NGINX port
+
+1. Update `srcs/docker-compose.yml`:
+```yaml
+   ports:
+     - "8443:443"
+```
+
+2. Update WordPress site URL in database:
+```bash
+   docker exec -it wordpress wp option update siteurl https://myuen.42.fr:8443 --allow-root
+   docker exec -it wordpress wp option update home https://myuen.42.fr:8443 --allow-root
+```
+
+3. Rebuild:
+```bash
+   make re
+```
+
 ## Common debug commands
 
 ```bash
