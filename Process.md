@@ -1,3 +1,43 @@
+myuen@myuen:~/inception$ curl -vk https://myuen.42.fr:8443
+*   Trying 127.0.0.1:8443...
+* Connected to myuen.42.fr (127.0.0.1) port 8443 (#0)
+* ALPN: offers h2,http/1.1
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN: server accepted http/1.1
+* Server certificate:
+*  subject: C=SG; ST=Singapore; L=Singapore; O=42; CN=myuen.42.fr
+*  start date: Apr 21 10:59:00 2026 GMT
+*  expire date: Apr 21 10:59:00 2027 GMT
+*  issuer: C=SG; ST=Singapore; L=Singapore; O=42; CN=myuen.42.fr
+*  SSL certificate verify result: self-signed certificate (18), continuing anyway.
+* using HTTP/1.1
+> GET / HTTP/1.1
+> Host: myuen.42.fr:8443
+> User-Agent: curl/7.88.1
+> Accept: */*
+> 
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* old SSL session ID is stale, removing
+< HTTP/1.1 301 Moved Permanently
+< Server: nginx/1.22.1
+< Date: Tue, 21 Apr 2026 11:03:10 GMT
+< Content-Type: text/html; charset=UTF-8
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< X-Redirect-By: WordPress
+< Location: https://myuen.42.fr/
+< 
+* Connection #0 to host myuen.42.fr left intact
+
 
 # myuen_inception
 documentation and files for ft_inception @ 42
