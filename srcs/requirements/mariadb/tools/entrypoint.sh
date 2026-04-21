@@ -9,7 +9,7 @@ if [ ! -d "/var/lib/mysql/wordpress" ]; then
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
     # Start MariaDB temporarily with no networking (setup only)
-    mysqld_safe --skip-networking &
+    mysqld_safe --skip-networking
     sleep 3
 
     # Run setup SQL using environment variables from .env
