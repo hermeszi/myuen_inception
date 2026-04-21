@@ -15,4 +15,4 @@ fclean: clean
 	sudo rm -rf /home/myuen/data/mariadb/*
 	sudo rm -rf /home/myuen/data/wordpress/*
 
-.PHONY: all down re clean fcleanCOMPOSE_FILE = srcs/docker-compose.yml
+.PHONY: all down re clean fclean
