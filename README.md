@@ -80,7 +80,6 @@ make fclean
 - [Docker official documentation](https://docs.docker.com)
 - [Dockerfile best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 - [Docker Compose reference](https://docs.docker.com/compose/compose-file/)
-- [PID 1 and Docker](https://cloud.google.com/architecture/best-practices-for-building-containers#signal-handling)
 
 ### NGINX
 - [NGINX beginner's guide](https://nginx.org/en/docs/beginners_guide.html)
@@ -99,10 +98,9 @@ make fclean
 - [TLS 1.2 vs TLS 1.3](https://www.cloudflare.com/learning/ssl/why-use-tls-1.3/)
 
 ### AI Usage
-Claude (Anthropic) was used throughout this project as a Socratic learning tool — not to generate complete solutions, but to guide understanding through targeted questions. Specific uses:
+Claude (Anthropic) was used throughout this project as a Socratic learning tool. Specific uses:
 - Explaining Docker concepts (PID 1, layers, networking, volumes)
 - Explaining MariaDB config load order problem and fix
 - Explaining php-fpm, FastCGI, and why `listen = 0.0.0.0:9000` is required
 - Reviewing entrypoint script logic
 - Explaining nginx.conf directives (`location ~ \.php$`, `fastcgi_pass`)
-- All code was understood, tested, and debugged manually before use
