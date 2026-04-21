@@ -26,13 +26,13 @@ Browser (HTTPS port 443)
 A VM virtualizes an entire operating system including the kernel. Docker containers share the host kernel and only isolate the application layer. Docker is faster to start, uses less memory, and is easier to reproduce. VMs offer stronger isolation but are heavier.
 
 **Secrets vs Environment Variables**
-Environment variables are visible to any process in the container and can be leaked through logs. Docker secrets are mounted as files inside the container with restricted permissions, safer for sensitive data. This project uses a `.env` file (gitignored) passed through docker-compose, with secrets stored in a `secrets/` folder also gitignored.
+Environment variables are visible to any process in the container and can be leaked through logs. Docker secrets are mounted as files inside the container with restricted permissions, safer for sensitive data. This project uses a `.env` file (gitignored) passed through docker-compose, without secrets.
 
 **Docker Network vs Host Network**
 Host network mode shares the host's network stack — containers can reach each other via localhost but there is no isolation. Docker network creates a private virtual network where containers communicate by service name. This project uses a custom bridge network called `inception` so containers are isolated from the host and from each other except through defined connections.
 
 **Docker Volumes vs Bind Mounts**
-Bind mounts link a specific host directory to a container path — fragile and machine-dependent. Named volumes are managed by Docker and more portable. This project uses named volumes with `driver_opts` to control where data is stored on the host (`/home/myuen/data/`), satisfying both the portability of named volumes and the location requirement of the subject.
+Bind mounts link a specific host directory to a container path which is machine-dependent. Named volumes are managed by Docker and more portable. This project uses named volumes with `driver_opts` to control where data is stored on the host (`/home/myuen/data/`), satisfying both the portability of named volumes and the location requirement of the subject.
 
 ## Instructions
 
