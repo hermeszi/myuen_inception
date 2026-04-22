@@ -1,14 +1,14 @@
-# Inception — Process Guide
+# 🐋 Inception — Process Guide
 
 ---
 
-## 1. Download Debian Bookworm
+## 1. 💿 Download Debian Bookworm
 
 Download `debian-12.9.0-amd64-netinst` (bookworm). Latest Debian is version 13 (trixie) — use the penultimate stable version (bookworm) as required by the subject.
 
 ---
 
-## 2. Set Up VirtualBox VM
+## 2. 🖥️ Set Up VirtualBox VM
 
 During installation, select:
 - [X] XFCE — lightweight GUI
@@ -17,7 +17,7 @@ During installation, select:
 
 ---
 
-## 3. Enable Sudo and Add Your User
+## 3. 🔑 Enable Sudo and Add Your User
 
 ```bash
 su - 
@@ -27,7 +27,7 @@ usermod -aG sudo <login>
 
 ---
 
-## 4. Update System
+## 4. 🔄 Update System
 
 ```bash
 sudo apt update && sudo apt full-upgrade -y
@@ -35,7 +35,7 @@ sudo apt update && sudo apt full-upgrade -y
 
 ---
 
-## 5. Install Docker Engine
+## 5. 🐳 Install Docker Engine
 
 ### Add Docker's official GPG key:
 ```bash
@@ -63,11 +63,11 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 sudo usermod -aG docker <login>
 ```
 
-Log out and back in for group change to take effect.
+> ⚠️ Log out and back in for group change to take effect.
 
 ---
 
-## 6. Install Useful Tools
+## 6. 🛠️ Install Useful Tools
 
 ```bash
 sudo apt install git vim curl wget make net-tools -y
@@ -81,7 +81,7 @@ source ~/.bashrc
 
 ---
 
-## 7. Install VS Code (optional)
+## 7. 💻 Install VS Code (optional)
 
 ```bash
 sudo apt install software-properties-common apt-transport-https curl gpg -y
@@ -92,7 +92,7 @@ sudo apt update && sudo apt install code -y
 
 ---
 
-## 8. Set Up SSH Key for Git
+## 8. 🔐 Set Up SSH Key for Git
 
 ```bash
 ssh-keygen -t ed25519 -C "<login>@student.42singapore.sg"
@@ -102,7 +102,7 @@ cat ~/.ssh/id_ed25519.pub
 
 ---
 
-## 9. Set Up Folder Structure
+## 9. 📁 Set Up Folder Structure
 
 ```bash
 mkdir -p ~/inception/srcs/requirements/{mariadb,nginx,wordpress}
@@ -117,7 +117,7 @@ touch ~/inception/srcs/.env
 
 ---
 
-## 10. Configure Local Domain
+## 10. 🌐 Configure Local Domain
 
 ```bash
 sudo nano /etc/hosts
@@ -127,7 +127,7 @@ sudo nano /etc/hosts
 
 ---
 
-## 11. Prepare Volume Directories
+## 11. 💾 Prepare Volume Directories
 
 ```bash
 mkdir -p /home/<login>/data/mariadb
@@ -136,7 +136,7 @@ mkdir -p /home/<login>/data/wordpress
 
 ---
 
-## 12. Create .gitignore
+## 12. 🙈 Create .gitignore
 
 ```bash
 cat > ~/inception/.gitignore << EOF
@@ -145,11 +145,11 @@ secrets/
 EOF
 ```
 
-**Never commit `.env` or `secrets/` — passwords in git = instant eval failure.**
+> 🚨 **Never commit `.env` or `secrets/` — passwords in git = instant eval failure.**
 
 ---
 
-## 13. Create srcs/.env
+## 13. ⚙️ Create srcs/.env
 
 ```bash
 nano ~/inception/srcs/.env
@@ -170,14 +170,14 @@ WP_USER_PASSWORD=<wp_second_password>
 WP_USER_EMAIL=<wp_second_email>
 ```
 
-**Important:**
-- `WP_ADMIN` must NOT contain "admin" or "administrator"
-- `WP_ADMIN_EMAIL` and `WP_USER_EMAIL` must be different
-- Never use the same password twice in a real project
+> ⚠️ **Important:**
+> - `WP_ADMIN` must NOT contain "admin" or "administrator"
+> - `WP_ADMIN_EMAIL` and `WP_USER_EMAIL` must be different
+> - Never use the same password twice in a real project
 
 ---
 
-## 14. MariaDB — Dockerfile
+## 14. 🗄️ MariaDB — Dockerfile
 
 `srcs/requirements/mariadb/Dockerfile`
 
@@ -201,7 +201,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 ---
 
-## 15. MariaDB — Config File
+## 15. 🗄️ MariaDB — Config File
 
 `srcs/requirements/mariadb/conf/my.cnf`
 
@@ -211,13 +211,13 @@ bind-address = 0.0.0.0
 port = 3306
 ```
 
-**Why `bind-address = 0.0.0.0`?** Default is `127.0.0.1` (localhost only). WordPress container connects from a different IP on the Docker network, so MariaDB must listen on all interfaces.
+> 💡 **Why `bind-address = 0.0.0.0`?** Default is `127.0.0.1` (localhost only). WordPress container connects from a different IP on the Docker network, so MariaDB must listen on all interfaces.
 
-**Why `99-custom.cnf`?** MariaDB loads config files in order. `50-server.cnf` sets `bind-address = 127.0.0.1`. Naming our file `99-custom.cnf` ensures it loads last and overrides that setting.
+> 💡 **Why `99-custom.cnf`?** MariaDB loads config files in order. `50-server.cnf` sets `bind-address = 127.0.0.1`. Naming our file `99-custom.cnf` ensures it loads last and overrides that setting.
 
 ---
 
-## 16. MariaDB — Entrypoint Script
+## 16. 🗄️ MariaDB — Entrypoint Script
 
 `srcs/requirements/mariadb/tools/entrypoint.sh`
 
@@ -258,7 +258,7 @@ exec mysqld_safe
 
 ---
 
-## 17. docker-compose.yml — MariaDB Only (First Test)
+## 17. 📝 docker-compose.yml — MariaDB Only (First Test)
 
 `srcs/docker-compose.yml`
 
@@ -298,7 +298,7 @@ networks:
 
 ---
 
-## 18. Test MariaDB
+## 18. ✅ Test MariaDB
 
 ```bash
 cd ~/inception/srcs
@@ -308,7 +308,7 @@ docker compose logs mariadb
 
 Expected: `mysqld_safe Starting mariadbd daemon`
 
-### Verify database is running and populated:
+### 🔍 Verify database is running and populated:
 
 ```bash
 # Shell into container
@@ -336,7 +336,7 @@ exit
 
 ---
 
-## 19. WordPress — Dockerfile
+## 19. 🌐 WordPress — Dockerfile
 
 `srcs/requirements/wordpress/Dockerfile`
 
@@ -367,7 +367,7 @@ EXPOSE 9000
 ENTRYPOINT ["/entrypoint.sh"]
 ```
 
-### Check your php-fpm version:
+### 🔍 Check your php-fpm version:
 ```bash
 docker run -it debian:bookworm bash
 apt-get update && apt-get install -y php-fpm
@@ -378,7 +378,7 @@ exit
 
 ---
 
-## 20. WordPress — php-fpm Config
+## 20. 🌐 WordPress — php-fpm Config
 
 `srcs/requirements/wordpress/conf/www.conf`
 
@@ -396,11 +396,11 @@ pm.min_spare_servers = 1
 pm.max_spare_servers = 3
 ```
 
-**Why `listen = 0.0.0.0:9000`?** Default uses a Unix socket (`/run/php/php8.2-fpm.sock`). NGINX in a separate container can't reach a Unix socket — it needs TCP. `0.0.0.0:9000` listens on all interfaces.
+> 💡 **Why `listen = 0.0.0.0:9000`?** Default uses a Unix socket (`/run/php/php8.2-fpm.sock`). NGINX in a separate container can't reach a Unix socket — it needs TCP. `0.0.0.0:9000` listens on all interfaces.
 
 ---
 
-## 21. WordPress — Entrypoint Script
+## 21. 🌐 WordPress — Entrypoint Script
 
 `srcs/requirements/wordpress/tools/entrypoint.sh`
 
@@ -456,7 +456,7 @@ exec php-fpm8.2 -F
 
 ---
 
-## 22. docker-compose.yml — Add WordPress
+## 22. 📝 docker-compose.yml — Add WordPress
 
 Add to `srcs/docker-compose.yml` under services:
 
@@ -502,7 +502,7 @@ Add to the `volumes:` section:
 
 ---
 
-## 23. NGINX — Dockerfile
+## 23. 🔒 NGINX — Dockerfile
 
 `srcs/requirements/nginx/Dockerfile`
 
@@ -534,7 +534,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ---
 
-## 24. NGINX — Config File
+## 24. 🔒 NGINX — Config File
 
 `srcs/requirements/nginx/conf/nginx.conf`
 
@@ -564,7 +564,7 @@ http {
 
 ---
 
-## 25. docker-compose.yml — Add NGINX
+## 25. 📝 docker-compose.yml — Add NGINX
 
 Add to `srcs/docker-compose.yml` under services:
 
@@ -586,7 +586,7 @@ Add to `srcs/docker-compose.yml` under services:
 
 ---
 
-## 26. Makefile
+## 26. 🔨 Makefile
 
 `~/inception/Makefile`
 
@@ -611,11 +611,11 @@ fclean: clean
 .PHONY: all down re clean fclean
 ```
 
-**Note:** Indentation must use tabs, not spaces.
+> ⚠️ Indentation must use tabs, not spaces.
 
 ---
 
-## 27. Build and Test Everything
+## 27. 🚀 Build and Test Everything
 
 ```bash
 cd ~/inception
@@ -633,26 +633,24 @@ docker compose -f srcs/docker-compose.yml logs nginx
 
 ---
 
-## 28. Verify WordPress Is Running
+## 28. ✅ Verify WordPress Is Running
 
 Open browser: `https://<login>.42.fr`
 
 Accept the self-signed certificate warning and proceed. You should see the WordPress site.
 
-Test HTTPS works:
 ```bash
+# Test HTTPS works
 curl -k https://<login>.42.fr
-```
 
-Test HTTP is blocked (must fail):
-```bash
+# Test HTTP is blocked (must fail)
 curl http://<login>.42.fr
 # Expected: connection refused
 ```
 
 ---
 
-## 29. Verify Database Is Populated
+## 29. 🔍 Verify Database Is Populated
 
 After WordPress installs, the database should have tables:
 
@@ -664,7 +662,7 @@ Expected output includes: `wp_posts`, `wp_users`, `wp_options`, `wp_comments` et
 
 ---
 
-## 30. Verify Two WordPress Users Exist
+## 30. 👥 Verify Two WordPress Users Exist
 
 ```bash
 docker exec -it wordpress wp user list --allow-root
@@ -680,11 +678,11 @@ Expected output:
 +----+-------------+---------------+-----+---------------------+---------------+
 ```
 
-**Eval check:** Admin username must not contain "admin" or "administrator".
+> 🚨 **Eval check:** Admin username must not contain "admin" or "administrator".
 
 ---
 
-## 31. Test Data Persistence
+## 31. 💾 Test Data Persistence
 
 ```bash
 # Create a test post in WordPress admin panel
@@ -697,18 +695,18 @@ sudo reboot
 cd ~/inception
 make
 
-# Visit the site — test post must still be there
+# Visit the site — test post must still be there ✅
 ```
 
 ---
 
-## 32. Changing Ports (Eval Preparation)
+## 32. 🔧 Changing Ports (Eval Preparation)
 
 The eval may ask you to change a port live. Know which files to edit for each service.
 
 ---
 
-### Change NGINX Port
+### 🔒 Change NGINX Port
 
 **Files to change:**
 
@@ -718,7 +716,7 @@ ports:
   - "8443:443"   # host_port:container_port
 ```
 
-2. Update WordPress URL in database (WordPress stores the URL and sometimes redirect):
+2. Update WordPress URL in database (WordPress stores the URL and sometimes redirects):
 ```bash
 docker exec -it wordpress wp option update siteurl https://<login>.42.fr:8443 --allow-root
 docker exec -it wordpress wp option update home https://<login>.42.fr:8443 --allow-root
@@ -733,7 +731,7 @@ make re
 
 ---
 
-### Change WordPress/php-fpm Port
+### 🌐 Change WordPress/php-fpm Port
 
 **Files to change:**
 
@@ -751,7 +749,7 @@ fastcgi_pass wordpress:9001;
 
 ---
 
-### Change MariaDB Port
+### 🗄️ Change MariaDB Port
 
 **Files to change:**
 
@@ -777,20 +775,15 @@ make
 
 ---
 
-## Key Concepts for Eval
+## 📚 Key Concepts for Eval
 
-**Docker vs VM:** Containers share the host kernel, VMs virtualize the entire OS. Docker is faster and lighter; VMs offer stronger isolation.
-
-**docker-compose vs docker run:** docker-compose orchestrates multiple containers defined in a YAML file. `docker run` starts a single container manually.
-
-**Named volumes vs bind mounts:** Bind mounts directly map a host path — fragile and machine-dependent. Named volumes are managed by Docker. This project uses named volumes with `driver_opts` to control host storage location.
-
-**Docker network vs host network:** Host network shares the host's network stack (no isolation). Docker bridge network creates a private virtual network where containers communicate by service name.
-
-**Secrets vs environment variables:** Env vars are visible to all processes and can appear in logs. Secrets are mounted as files with restricted permissions — safer for sensitive data.
-
-**PID 1:** Docker watches the first process. If it exits, the container stops. Services must run in foreground (`daemon off` for NGINX, `-F` for php-fpm, `exec mysqld_safe` for MariaDB).
-
-**FastCGI:** Protocol NGINX uses to send PHP requests to php-fpm. NGINX handles HTTP/HTTPS; php-fpm executes PHP code and returns HTML.
-
-**php-fpm:** PHP FastCGI Process Manager. Keeps PHP worker processes alive and ready. WordPress is just PHP files — php-fpm is what executes them.
+| Concept | Summary |
+|---------|---------|
+| 🐳 **Docker vs VM** | Containers share the host kernel, VMs virtualize the entire OS. Docker is faster and lighter; VMs offer stronger isolation. |
+| 📋 **docker-compose vs docker run** | docker-compose orchestrates multiple containers defined in a YAML file. `docker run` starts a single container manually. |
+| 💾 **Named volumes vs bind mounts** | Bind mounts directly map a host path — fragile and machine-dependent. Named volumes are managed by Docker. This project uses named volumes with `driver_opts` to control host storage location. |
+| 🌐 **Docker network vs host network** | Host network shares the host's network stack (no isolation). Docker bridge network creates a private virtual network where containers communicate by service name. |
+| 🔐 **Secrets vs environment variables** | Env vars are visible to all processes and can appear in logs. Secrets are mounted as files with restricted permissions — safer for sensitive data. |
+| ⚙️ **PID 1** | Docker watches the first process. If it exits, the container stops. Services must run in foreground (`daemon off` for NGINX, `-F` for php-fpm, `exec mysqld_safe` for MariaDB). |
+| ⚡ **FastCGI** | Protocol NGINX uses to send PHP requests to php-fpm. NGINX handles HTTP/HTTPS; php-fpm executes PHP code and returns HTML. |
+| 🔧 **php-fpm** | PHP FastCGI Process Manager. Keeps PHP worker processes alive and ready. WordPress is just PHP files — php-fpm is what executes them. |
