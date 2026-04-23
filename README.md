@@ -1,30 +1,115 @@
-myuen@myuen:~/inception/srcs$ sudo rm -rf /home/myuen/data/mariadb/*
+Total reclaimed space: 1.023GB
 myuen@myuen:~/inception/srcs$ docker compose up -d mariadb
-[+] up 2/2
- ✔ Network srcs_inception Created                                                                                 0.1s
- ✔ Container mariadb      Started                                                                                 2.8s
-myuen@myuen:~/inception/srcs$ sleep 5
-myuen@myuen:~/inception/srcs$ sudo ls -la /home/myuen/data/mariadb/
-total 123336
-drwxr-xr-x 6 messagebus crontab      4096 Apr 23 20:17 .
-drwxr-xr-x 4 myuen      myuen        4096 Apr 23 20:07 ..
--rw-rw---- 1 messagebus crontab    417792 Apr 23 20:17 aria_log.00000001
--rw-rw---- 1 messagebus crontab        52 Apr 23 20:17 aria_log_control
--rw-rw---- 1 messagebus crontab         9 Apr 23 20:17 ddl_recovery.log
--rw-r--r-- 1 root       root            0 Apr 23 19:31 debian-10.11.flag
--rw-rw---- 1 messagebus crontab       910 Apr 23 20:17 ib_buffer_pool
--rw-rw---- 1 messagebus crontab  12582912 Apr 23 19:31 ibdata1
--rw-rw---- 1 messagebus crontab 100663296 Apr 23 19:31 ib_logfile0
--rw-rw---- 1 messagebus crontab  12582912 Apr 23 20:17 ibtmp1
--rw-rw---- 1 messagebus crontab         0 Apr 23 20:17 multi-master.info
-drwx------ 2 messagebus crontab      4096 Apr 23 20:17 mysql
--rw-r--r-- 1 root       root           16 Apr 23 19:31 mysql_upgrade_info
-drwx------ 2 messagebus crontab      4096 Apr 23 20:17 performance_schema
-drwx------ 2 messagebus crontab     12288 Apr 23 20:17 sys
-drwx------ 2 messagebus crontab      4096 Apr 23 20:17 wordpress
+[+] up 14/14
+ ✔ Image mariadb            Pulled                                                                               11.4s
+ ✔ Network srcs_inception   Created                                                                               0.2s
+ ✔ Volume srcs_mariadb_data Created                                                                               0.1s
+ ✔ Container mariadb        Started                                                                               1.2s
+myuen@myuen:~/inception/srcs$ docker compose logs  mariadb 
+mariadb  | 2026-04-23 12:22:48+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:48+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:48+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:48+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:48+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:49+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:49+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:49+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:49+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:49+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:50+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:50+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:50+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:50+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:50+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:51+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:51+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:51+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:51+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:51+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:52+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:52+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:52+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:52+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:53+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:54+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:55+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:55+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:55+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:55+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:58+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:59+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:59+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:59+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:59+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:23:05+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:23:06+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:23:06+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:23:06+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:23:06+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+myuen@myuen:~/inception/srcs$ docker compose logs mariadb 
+mariadb  | 2026-04-23 12:22:48+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:48+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:48+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:48+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:48+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:49+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:49+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:49+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:49+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:49+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:50+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:50+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:50+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:50+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:50+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:51+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:51+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:51+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:51+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:51+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:52+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:52+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:52+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:52+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:53+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:54+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:55+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:55+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:55+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:55+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:22:58+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:59+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:22:59+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:22:59+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:22:59+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:23:05+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:23:06+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:23:06+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:23:06+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:23:06+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+mariadb  | 2026-04-23 12:23:19+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:23:19+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+mariadb  | 2026-04-23 12:23:19+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mariadb  | 2026-04-23 12:23:19+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:12.2.2+maria~ubu2404 started.
+mariadb  | 2026-04-23 12:23:19+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+mariadb  | 	You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
 myuen@myuen:~/inception/srcs$ 
-
-
 
 
 
