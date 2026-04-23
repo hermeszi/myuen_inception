@@ -1,13 +1,21 @@
-myuen@myuen:~/inception/srcs$ docker compose logs mariadb
-mariadb  | Initializing MariaDB data directory and setting up database...
-mariadb  | mysql.user table already exists!
-mariadb  | Run mysql_upgrade, not mysql_install_db
-mariadb  | 260423 12:00:17 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:00:18 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-mariadb  | Starting MariaDB...
-mariadb  | 260423 12:00:23 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:00:23 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-myuen@myuen:~/inception/srcs$ 
+total 123344
+drwxr-xr-x 6 messagebus crontab      4096 Apr 23 20:00 .
+drwxr-xr-x 4 myuen      myuen        4096 Mar 27 15:22 ..
+-rw-rw---- 1 messagebus crontab    417792 Apr 23 20:00 aria_log.00000001
+-rw-rw---- 1 messagebus crontab        52 Apr 23 20:00 aria_log_control
+-rw-rw---- 1 messagebus crontab     12288 Apr 23 20:00 ddl_recovery.log
+-rw-r--r-- 1 root       root            0 Apr 23 19:31 debian-10.11.flag
+-rw-rw---- 1 messagebus crontab       910 Apr 23 20:00 ib_buffer_pool
+-rw-rw---- 1 messagebus crontab  12582912 Apr 23 19:31 ibdata1
+-rw-rw---- 1 messagebus crontab 100663296 Apr 23 20:00 ib_logfile0
+-rw-rw---- 1 messagebus crontab  12582912 Apr 23 20:00 ibtmp1
+-rw-rw---- 1 messagebus crontab         0 Apr 23 20:00 multi-master.info
+drwx------ 2 messagebus crontab      4096 Apr 23 20:00 mysql
+-rw-r--r-- 1 root       root           16 Apr 23 19:31 mysql_upgrade_info
+drwx------ 2 messagebus crontab      4096 Apr 23 20:00 performance_schema
+drwx------ 2 messagebus crontab     12288 Apr 23 20:00 sys
+drwx------ 2 messagebus crontab      4096 Apr 23 20:00 wordpress
+
 
 
 
