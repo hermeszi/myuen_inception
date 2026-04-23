@@ -1,38 +1,28 @@
-#!/bin/bash
-
-MYSQL_PASSWORD=$(cat /run/secrets/db_password)
-MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
-
-# First run: data directory for our database doesn't exist yet
-if [ ! -d "/var/lib/mysql/wordpress" ]; then
-
-    echo "Initializing MariaDB data directory and setting up database..."
-
-    # Initialize fresh MariaDB data directory
-    mysql_install_db --user=mysql --datadir=/var/lib/mysql
-
-    # Start MariaDB temporarily with no networking (setup only)
-    mysqld_safe --skip-networking &
-    sleep 3
-
-    # Run setup SQL using environment variables from .env
-    mysql -u root << EOF
-CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
-CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
-FLUSH PRIVILEGES;
-EOF
-
-    # Stop the temporary MariaDB process
-    kill $(cat /var/run/mysqld/mysqld.pid)
-    sleep 2
-
-fi
-
-# Start MariaDB as PID 1 (replaces this script process)
-echo "Starting MariaDB..."
-exec mysqld_safe
+myuen@myuen:~/inception/srcs$ sudo rm -rf /home/myuen/data/mariadb/*
+myuen@myuen:~/inception/srcs$ docker compose up -d mariadb
+[+] up 2/2
+ ✔ Network srcs_inception Created                                                                                 0.1s
+ ✔ Container mariadb      Started                                                                                 2.8s
+myuen@myuen:~/inception/srcs$ sleep 5
+myuen@myuen:~/inception/srcs$ sudo ls -la /home/myuen/data/mariadb/
+total 123336
+drwxr-xr-x 6 messagebus crontab      4096 Apr 23 20:17 .
+drwxr-xr-x 4 myuen      myuen        4096 Apr 23 20:07 ..
+-rw-rw---- 1 messagebus crontab    417792 Apr 23 20:17 aria_log.00000001
+-rw-rw---- 1 messagebus crontab        52 Apr 23 20:17 aria_log_control
+-rw-rw---- 1 messagebus crontab         9 Apr 23 20:17 ddl_recovery.log
+-rw-r--r-- 1 root       root            0 Apr 23 19:31 debian-10.11.flag
+-rw-rw---- 1 messagebus crontab       910 Apr 23 20:17 ib_buffer_pool
+-rw-rw---- 1 messagebus crontab  12582912 Apr 23 19:31 ibdata1
+-rw-rw---- 1 messagebus crontab 100663296 Apr 23 19:31 ib_logfile0
+-rw-rw---- 1 messagebus crontab  12582912 Apr 23 20:17 ibtmp1
+-rw-rw---- 1 messagebus crontab         0 Apr 23 20:17 multi-master.info
+drwx------ 2 messagebus crontab      4096 Apr 23 20:17 mysql
+-rw-r--r-- 1 root       root           16 Apr 23 19:31 mysql_upgrade_info
+drwx------ 2 messagebus crontab      4096 Apr 23 20:17 performance_schema
+drwx------ 2 messagebus crontab     12288 Apr 23 20:17 sys
+drwx------ 2 messagebus crontab      4096 Apr 23 20:17 wordpress
+myuen@myuen:~/inception/srcs$ 
 
 
 
