@@ -1,20 +1,39 @@
- ✔ Image mariadb          Built                                                                                   2.2s
- ✔ Image wordpress        Built                                                                                   2.2s
- ✔ Image nginx            Built                                                                                   2.2s
- ✔ Network srcs_inception Created                                                                                 0.1s
- ✔ Container mariadb      Started                                                                                 3.1s
- ✔ Container wordpress    Started                                                                                 0.7s
- ✔ Container nginx        Started                                                                                 0.9s
-myuen@myuen:~/inception/srcs$ docker compose logs mariadb
-mariadb  | Initializing MariaDB data directory and setting up database...
-mariadb  | mysql.user table already exists!
-mariadb  | Run mysql_upgrade, not mysql_install_db
-mariadb  | 260423 12:13:59 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:13:59 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-mariadb  | Starting MariaDB...
-mariadb  | 260423 12:14:04 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:14:04 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-myuen@myuen:~/inception/srcs$ 
+#!/bin/bash
+
+MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+
+# First run: data directory for our database doesn't exist yet
+if [ ! -d "/var/lib/mysql/wordpress" ]; then
+
+    echo "Initializing MariaDB data directory and setting up database..."
+
+    # Initialize fresh MariaDB data directory
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql
+
+    # Start MariaDB temporarily with no networking (setup only)
+    mysqld_safe --skip-networking &
+    sleep 3
+
+    # Run setup SQL using environment variables from .env
+    mysql -u root << EOF
+CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
+CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+FLUSH PRIVILEGES;
+EOF
+
+    # Stop the temporary MariaDB process
+    kill $(cat /var/run/mysqld/mysqld.pid)
+    sleep 2
+
+fi
+
+# Start MariaDB as PID 1 (replaces this script process)
+echo "Starting MariaDB..."
+exec mysqld_safe
+
 
 
 
