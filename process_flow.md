@@ -171,7 +171,7 @@ WP_USER_EMAIL=<wp_second_email>
 ```
 
 > ⚠️ **Important:**
-> - `WP_ADMIN` must NOT contain "admin" or "administrator"
+> - `WP_ADMIN` must  contain "admin" or "administrator"
 > - `WP_ADMIN_EMAIL` and `WP_USER_EMAIL` must be different
 > - Never use the same password twice in a real project
 
@@ -238,8 +238,8 @@ if [ ! -d "/var/lib/mysql/wordpress" ]; then
     # Run setup SQL using environment variables from .env
     # EOF heredoc feeds multiple SQL commands to mysql client
     mysql -u root << EOF
-CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
-CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+CREATE DATABASE IF  EXISTS ${MYSQL_DATABASE};
+CREATE USER IF  EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
 GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
@@ -295,7 +295,7 @@ networks:
   inception:
     driver: bridge
 ```
-
+> ⚠️ Indentation must use spaces, not tabs.
 ---
 
 ## 18. ✅ Test MariaDB
@@ -372,7 +372,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 docker run -it debian:bookworm bash
 apt-get update && apt-get install -y php-fpm
 ls /usr/sbin/php-fpm*
-# Note the version number (e.g. php-fpm8.2)
+# e the version number (e.g. php-fpm8.2)
 exit
 ```
 
@@ -408,7 +408,7 @@ pm.max_spare_servers = 3
 #!/bin/bash
 
 # Wait for MariaDB to be ready before proceeding
-# depends_on only waits for container start, not for MariaDB to finish initializing
+# depends_on only waits for container start,  for MariaDB to finish initializing
 until mariadb -h mariadb -P ${MYSQL_PORT} -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e "SELECT 1;" > /dev/null 2>&1; do
     echo "Waiting for MariaDB..."
     sleep 2
@@ -515,7 +515,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Generate self-signed SSL certificate at build time
-# -x509: output certificate not CSR
+# -x509: output certificate  CSR
 # -nodes: no passphrase on key
 # -days 365: valid for 1 year
 # -newkey rsa:2048: generate new 2048-bit RSA key
