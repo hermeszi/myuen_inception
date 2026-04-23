@@ -1,22 +1,14 @@
-[+] up 9/9
- ✔ Image mariadb              Built                                                                  2.3s
- ✔ Image wordpress            Built                                                                  2.3s
- ✔ Image nginx                Built                                                                  2.3s
- ✔ Network srcs_inception     Created                                                                0.1s
- ✔ Volume srcs_mariadb_data   Created                                                                0.0s
- ✔ Volume srcs_wordpress_data Created                                                                0.0s
- ✔ Container mariadb          Started                                                                0.4s
- ✔ Container wordpress        Started                                                                0.5s
- ✔ Container nginx            Started                                                                0.7s
-myuen@myuen:~/inception/srcs$ docker compose logs mariadb 
+myuen@myuen:~/inception/srcs$ docker exec -it mariadb ss -tlnp
+State       Recv-Q      Send-Q           Local Address:Port             Peer Address:Port      Process      
+LISTEN      0           4096                127.0.0.11:36319                 0.0.0.0:*                      
+myuen@myuen:~/inception/srcs$ docker compose logs mariadb
 mariadb  | Initializing MariaDB data directory and setting up database...
-mariadb  | cat: /run/secrets/wp_admin_password: No such file or directory
-mariadb  | cat: /run/secrets/wp_user_password: No such file or directory
 mariadb  | mysql.user table already exists!
 mariadb  | Run mysql_upgrade, not mysql_install_db
-mariadb  | 260423 11:08:32 mysqld_safe Logging to syslog.
-mariadb  | 260423 11:08:32 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
+mariadb  | 260423 11:32:31 mysqld_safe Logging to syslog.
+mariadb  | 260423 11:32:32 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
 myuen@myuen:~/inception/srcs$ 
+
 
 
 *This project has been created as part of the 42 curriculum by myuen.*
