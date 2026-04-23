@@ -232,7 +232,7 @@ if [ ! -d "/var/lib/mysql/wordpress" ]; then
 
     # Start MariaDB temporarily with no networking (setup only)
     # --skip-networking prevents outside connections during initialization
-    mysqld_safe --skip-networking &
+    mysqld_safe --skip-networking #&
     sleep 3
 
     # Run setup SQL using environment variables from .env
