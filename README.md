@@ -1,13 +1,10 @@
-myuen@myuen:~/inception/srcs$ docker exec -it mariadb ss -tlnp
-State       Recv-Q      Send-Q           Local Address:Port             Peer Address:Port      Process      
-LISTEN      0           4096                127.0.0.11:36319                 0.0.0.0:*                      
-myuen@myuen:~/inception/srcs$ docker compose logs mariadb
-mariadb  | Initializing MariaDB data directory and setting up database...
-mariadb  | mysql.user table already exists!
-mariadb  | Run mysql_upgrade, not mysql_install_db
-mariadb  | 260423 11:32:31 mysqld_safe Logging to syslog.
-mariadb  | 260423 11:32:32 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-myuen@myuen:~/inception/srcs$ 
+root@00d451753fa9:/# grep -r "skip" /etc/mysql/
+/etc/mysql/mariadb.conf.d/50-mysqld_safe.cnf:skip_log_error
+/etc/mysql/mariadb.conf.d/50-server.cnf:# safe to skip if there are no "host by domain name" access grants
+/etc/mysql/mariadb.conf.d/50-server.cnf:#skip-name-resolve
+/etc/mysql/mariadb.conf.d/50-server.cnf:# Instead of skip-networking the default is now to listen only on
+root@00d451753fa9:/# 
+
 
 
 
