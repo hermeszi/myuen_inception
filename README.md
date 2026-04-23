@@ -1,32 +1,55 @@
-myuen@myuen:~/inception/srcs$ docker compose logs mariadb
-mariadb  | Initializing MariaDB data directory and setting up database...
-mariadb  | mysql.user table already exists!
-mariadb  | Run mysql_upgrade, not mysql_install_db
-mariadb  | 260423 12:25:46 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:25:46 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-mariadb  | Starting MariaDB...
-mariadb  | 260423 12:25:51 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:25:51 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-myuen@myuen:~/inception/srcs$ sudo ls -la /home/myuen/data/mariadb/
-total 123336
-drwxr-xr-x 6 messagebus crontab      4096 Apr 23 20:25 .
-drwxr-xr-x 4 myuen      myuen        4096 Apr 23 20:22 ..
--rw-rw---- 1 messagebus crontab    417792 Apr 23 20:25 aria_log.00000001
--rw-rw---- 1 messagebus crontab        52 Apr 23 20:25 aria_log_control
--rw-rw---- 1 messagebus crontab         9 Apr 23 20:25 ddl_recovery.log
--rw-r--r-- 1 root       root            0 Apr 23 20:25 debian-10.11.flag
--rw-rw---- 1 messagebus crontab       910 Apr 23 20:25 ib_buffer_pool
--rw-rw---- 1 messagebus crontab  12582912 Apr 23 20:25 ibdata1
--rw-rw---- 1 messagebus crontab 100663296 Apr 23 20:25 ib_logfile0
--rw-rw---- 1 messagebus crontab  12582912 Apr 23 20:25 ibtmp1
--rw-rw---- 1 messagebus crontab         0 Apr 23 20:25 multi-master.info
-drwx------ 2 messagebus crontab      4096 Apr 23 20:25 mysql
--rw-r--r-- 1 root       root           16 Apr 23 20:25 mysql_upgrade_info
-drwx------ 2 messagebus crontab      4096 Apr 23 20:25 performance_schema
-drwx------ 2 messagebus crontab     12288 Apr 23 20:25 sys
-drwx------ 2 messagebus crontab      4096 Apr 23 20:25 wordpress
+myuen@myuen:~/inception/srcs$ docker compose logs wordpress 
+wordpress  | Waiting for MariaDB...
+wordpress  | WordPress setup complete. Starting php-fpm...
 myuen@myuen:~/inception/srcs$ 
 
+#!/bin/bash
+
+MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
+WP_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
+
+# Wait for MariaDB to be ready
+until mariadb -h mariadb -P ${MYSQL_PORT} -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e "SELECT 1;" > /dev/null 2>&1; do
+    echo "Waiting for MariaDB..."
+    sleep 2
+done
+
+if [ ! -f /var/www/html/wp-config.php ]; then
+
+    echo "Setting up WordPress..."
+    # Download WordPress files
+    wp core download --allow-root
+
+    # Create wp-config.php using env variables
+    wp config create \
+        --dbname=${MYSQL_DATABASE} \
+        --dbuser=${MYSQL_USER} \
+        --dbpass=${MYSQL_PASSWORD} \
+        --dbhost=mariadb:${MYSQL_PORT} \
+        --allow-root
+
+    # Install WordPress and create DB tables
+    wp core install \
+        --url=${DOMAIN_NAME} \
+        --title="Inception" \
+        --admin_user=${WP_ADMIN} \
+        --admin_password=${WP_ADMIN_PASSWORD} \
+        --admin_email=${WP_ADMIN_EMAIL} \
+        --allow-root
+
+    # Create second regular user
+    wp user create ${WP_USER} ${WP_USER_EMAIL} \
+        --role=author \
+        --user_pass=${WP_USER_PASSWORD} \
+        --allow-root
+
+fi
+
+echo "WordPress setup complete. Starting php-fpm..."
+# Start php-fpm as PID 1
+exec php-fpm8.2 -F
 
 
 
