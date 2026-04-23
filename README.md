@@ -1,9 +1,11 @@
-root@00d451753fa9:/# grep -r "skip" /etc/mysql/
-/etc/mysql/mariadb.conf.d/50-mysqld_safe.cnf:skip_log_error
-/etc/mysql/mariadb.conf.d/50-server.cnf:# safe to skip if there are no "host by domain name" access grants
-/etc/mysql/mariadb.conf.d/50-server.cnf:#skip-name-resolve
-/etc/mysql/mariadb.conf.d/50-server.cnf:# Instead of skip-networking the default is now to listen only on
-root@00d451753fa9:/# 
+root@00d451753fa9:/# ps aux 
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.1   3932  2548 ?        Ss   11:32   0:00 /bin/bash /entrypoint.sh
+root          34  0.0  0.0   2584  1540 ?        S    11:32   0:00 /bin/sh /usr/bin/mysqld_safe --skip-networking
+mysql        174  0.0  4.1 1079108 82696 ?       Sl   11:32   0:00 /usr/sbin/mariadbd --basedir=/usr --datadir=/var/lib/m
+root         175  0.0  0.0   5952   544 ?        S    11:32   0:00 logger -t mysqld -p daemon error
+root         196  0.0  0.1   4196  3048 pts/0    Ss   11:39   0:00 bash
+root         208  0.0  0.1   8108  3948 pts/0    R+   11:48   0:00 ps aux
 
 
 
