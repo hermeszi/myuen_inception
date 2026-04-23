@@ -1,13 +1,28 @@
-myuen@myuen:~/inception/srcs$ docker compose logs mariadb
-mariadb  | Initializing MariaDB data directory and setting up database...
-mariadb  | mysql.user table already exists!
-mariadb  | Run mysql_upgrade, not mysql_install_db
-mariadb  | 260423 12:03:30 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:03:30 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
-mariadb  | Starting MariaDB...
-mariadb  | 260423 12:03:35 mysqld_safe Logging to syslog.
-mariadb  | 260423 12:03:35 mysqld_safe Starting mariadbd daemon with databases from /var/lib/mysql
+myuen@myuen:~/inception/srcs$ sudo ls -la /home/myuen/data/mariadb/
+total 123344
+drwxr-xr-x 6 messagebus crontab      4096 Apr 23 20:08 .
+drwxr-xr-x 4 myuen      myuen        4096 Apr 23 20:07 ..
+-rw-rw---- 1 messagebus crontab    417792 Apr 23 20:08 aria_log.00000001
+-rw-rw---- 1 messagebus crontab        52 Apr 23 20:08 aria_log_control
+-rw-rw---- 1 messagebus crontab     12288 Apr 23 20:08 ddl_recovery.log
+-rw-r--r-- 1 root       root            0 Apr 23 19:31 debian-10.11.flag
+-rw-rw---- 1 messagebus crontab       910 Apr 23 20:08 ib_buffer_pool
+-rw-rw---- 1 messagebus crontab  12582912 Apr 23 19:31 ibdata1
+-rw-rw---- 1 messagebus crontab 100663296 Apr 23 20:08 ib_logfile0
+-rw-rw---- 1 messagebus crontab  12582912 Apr 23 20:08 ibtmp1
+-rw-rw---- 1 messagebus crontab         0 Apr 23 20:07 multi-master.info
+drwx------ 2 messagebus crontab      4096 Apr 23 20:07 mysql
+-rw-r--r-- 1 root       root           16 Apr 23 19:31 mysql_upgrade_info
+drwx------ 2 messagebus crontab      4096 Apr 23 20:07 performance_schema
+drwx------ 2 messagebus crontab     12288 Apr 23 20:07 sys
+drwx------ 2 messagebus crontab      4096 Apr 23 20:08 wordpress
+myuen@myuen:~/inception/srcs$ sudo rm -rf /home/myuen/data/mariadb/*
+myuen@myuen:~/inception/srcs$ sudo ls -la /home/myuen/data/mariadb/
+total 8
+drwxr-xr-x 2 messagebus crontab 4096 Apr 23 20:09 .
+drwxr-xr-x 4 myuen      myuen   4096 Apr 23 20:07 ..
 myuen@myuen:~/inception/srcs$ 
+
 
 
 
