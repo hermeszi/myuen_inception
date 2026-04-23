@@ -1,3 +1,99 @@
+services:
+  mariadb:                    # service name = container hostname on Docker network
+    image: mariadb
+    build: requirements/mariadb   # where to find the Dockerfile
+    container_name: mariadb   # actual container name (must match service name for eval)
+    env_file: .env            # load all variables from .env file
+    secrets:
+      - db_password
+      - db_root_password
+    environment:              # pass specific vars into container
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      #- MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      #- MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql  # named volume : path inside container
+    expose:
+      - "3306"                # documentation only
+    networks:
+      - inception             # which Docker network to join
+    restart: unless-stopped   # restart on crash, but not if manually stopped
+
+  wordpress:
+    image: wordpress
+    build: requirements/wordpress
+    container_name: wordpress
+    env_file: .env
+    secrets:
+      - db_password
+      - wp_admin_password
+      - wp_user_password
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      #- MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - WP_ADMIN=${WP_ADMIN}
+      #- WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+      - WP_USER=${WP_USER}
+      #- WP_USER_PASSWORD=${WP_USER_PASSWORD}
+      - WP_USER_EMAIL=${WP_USER_EMAIL}
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+  nginx:
+    image: nginx
+    build: requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+    expose:
+      - "9000"    # documentation only
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:               # define the named volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/myuen/data/mariadb  # where data lives on host machine
+
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/myuen/data/wordpress
+
+networks:
+  inception:
+    driver: bridge            # standard Docker network type
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
+  wp_user_password:
+    file: ../secrets/wp_user_password.txt
+
 *This project has been created as part of the 42 curriculum by myuen.*
 
 # Inception
